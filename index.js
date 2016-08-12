@@ -17,7 +17,7 @@ var notifier = require('node-notifier');
 var utils    = require('./src/utils.js');
 var shell    = require('shelljs');
 
-module.exports = function(command, opt) {
+module.exports = function(command, opt, callback) {
 
 	var cmd      = '';
 	var launched = false;
@@ -260,6 +260,9 @@ module.exports = function(command, opt) {
 						} else {
 							msg.chalkline.green();
 						}
+					}
+					if(_.isFunction(callback)) {
+						callback();
 					}
 					cb(null, file);
 				}
