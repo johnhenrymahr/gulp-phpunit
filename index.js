@@ -249,6 +249,9 @@ module.exports = function(command, opt, callback) {
 						msg.error(error);
 						msg.chalkline.yellow();
 					}
+					if(_.isFunction(callback)) {
+						callback(new gutil.PluginError('gulp-phpunit', stderr || stdout));
+					}
 					cb(error, file);
 				} else {
 					if ( opt.statusLine ) {
@@ -262,7 +265,7 @@ module.exports = function(command, opt, callback) {
 						}
 					}
 					if(_.isFunction(callback)) {
-						callback();
+						callback(null, stderr || stdout);
 					}
 					cb(null, file);
 				}
